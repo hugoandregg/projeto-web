@@ -8,11 +8,15 @@
   <%= @article.text %>
 </p>
 
+<% if current_user == @article.user %>
+  <%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
 <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
   <p>
     <strong><%= comment.user.name %>:</strong>
-    <%= comment.body %>
+    <%= comment.body %> <% if current_user == comment.user %>- <%= link_to 'Destroy', article_comment_path(@article.id, comment), method: :delete, data: {confirm: 'Are you sure?'} %><% end %>
   </p>
 <% end %>
 
