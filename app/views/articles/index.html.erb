@@ -1,16 +1,20 @@
 <h1>Listing articles</h1>
+<h2>Welcome, <% if (current_user.present?) %><%= current_user.name %>! <% else %>user! <% end %></h2>
  
 <table>
   <tr>
     <th>Title</th>
     <th>Text</th>
+    <th>Comments</th>
     <th colspan="3"></th>
   </tr>
  
+
   <% @articles.each do |article| %>
     <tr>
       <td><%= article.title %></td>
       <td><%= article.text %></td>
+      <td><%= article.comments.count %></td>
       <td><%= link_to 'Show', article_path(article) %></td>
       <td><%= link_to 'Edit', edit_article_path(article) %></td>
       <td><%= link_to 'Destroy', article_path(article),
@@ -19,5 +23,3 @@
     </tr>
   <% end %>
 </table>
-
-<%= link_to 'New article', new_article_path %>
