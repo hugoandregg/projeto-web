@@ -11,20 +11,25 @@
 <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
   <p>
-    <strong>Comment:</strong>
+    <strong><%= comment.user.name %>:</strong>
     <%= comment.body %>
   </p>
 <% end %>
 
-<h2>Add a comment:</h2>
-<%= form_for([@article, @article.comments.build]) do |f| %>
-  <p>
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+<% if current_user.present? %>
+  <h2>Add a comment:</h2>
+  <%= form_for([@article, @article.comments.build]) do |f| %>
+    <p>
+      <%= f.label :body %><br>
+      <%= f.text_area :body %>
+    </p>
+
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
 <% end %>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
