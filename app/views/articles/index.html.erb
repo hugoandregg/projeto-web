@@ -31,3 +31,5 @@
 <% if current_user.present? %>
   <%= link_to 'New article', new_article_path %>
 <% end %>
+
+<%= will_paginate @articles %>
