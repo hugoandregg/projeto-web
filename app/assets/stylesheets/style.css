@@ -1,0 +1,83 @@
+#title-font a {
+	color: #222;
+	text-decoration: none;
+}
+
+.butn {
+	margin-top: 6px;
+}
+
+#butn-color {
+	background-color: red;
+	}
+
+#title-font {
+	font-size: 40px;
+	font-family: "Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+}
+
+#content-font {
+	font-size: 18px;
+	font-family: "Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+}
+
+#pop-font {
+	font-size: 40px;
+	font-family: "Courier New", Courier, monospace;
+}
+
+.log-form {
+	margin-top: 20px;
+}
+	
+.jumbotron {
+	background-color: #444;
+	text-align: center;
+	padding: 30px 15px;
+  	margin-top: -20px;
+  	color: #eee;
+}
+
+#btn-post {
+	background-color: green;
+	border-color: green;
+}
+
+.pager {
+	margin-left: -800px;
+	border-color: black;
+	border-width: 10px;
+}
+
+.pager li {
+	border-color: black;
+	color: black;
+}
+
+
+#footer {
+	background-color: #F0F0F0;
+	padding: 3em;
+	margin-top: 320px;
+	text-align: center;
+	display: block;
+}
+
+	ul.icons li{
+		display: inline-block;
+		padding: 0px 1.25em 0px 0px;
+		font-size: 24px;
+	}
+	
+	ul.actions li {
+		display: inline-block;
+	}
+
+	ul.copyright li {
+		display: inline;
+	}
+
+.icons a {
+	color: #D9534F;
+}
+
