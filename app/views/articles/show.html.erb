@@ -8,8 +8,23 @@
   <%= @article.text %>
 </p>
 
+<p>
+  <strong>Votes:</strong>
+  <span id="number_votes"><%= @article.votes.count %></span>
+</p>
+
 <% if current_user == @article.user %>
   <%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+<% if current_user.present? %>
+  <% if @article.votes.find_by_user_id(current_user.id) %>
+    <button id="bota2" onclick="toggle('bota2', 'bota1')"><%= link_to 'Remove_vote', remove_vote_vote_path(@article), method: :patch, remote: true %></button>
+    <button id="bota1" onclick="toggle('bota1', 'bota2')" style="display:none"><%= link_to 'Vote', vote_vote_path(@article), method: :patch, remote: true %></button>
+  <% else %>
+    <button id="bota1" onclick="toggle('bota1', 'bota2')"><%= link_to 'Vote', vote_vote_path(@article), method: :patch, remote: true %></button>
+    <button id="bota2" onclick="toggle('bota2', 'bota1')" style="display:none"><%= link_to 'Remove_vote', remove_vote_vote_path(@article), method: :patch, remote: true %></button>
+  <% end %>
 <% end %>
 
 <h2>Comments</h2>
@@ -38,3 +53,13 @@
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
+
+<% content_for :js do %>
+  function toggle(id, id2) {
+      var e = document.getElementById(id);
+      var e2 = document.getElementById(id2);
+      
+      e.style.display='none';
+      e2.style.display='inline';
+  }
+<% end %>
