@@ -5,20 +5,64 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<% if current_user.present? %>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path %>/
-  <%= link_to "Log in", new_user_session_path %>
-<% end %>
+
+<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">
+					<img alt="Brand" src="http://dogedigger.l8.io/assets/player.png">
+				</a>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Hot</a></li>
+					<li><a href="#">Tredding</a></li>
+					<li><a href="#">Fresh</a></li>
+				</ul>
+			</div>
+			<div class="navbar-right butn">
+				<div if="butn-color" class="btn-group" role="group" aria-label="...">
+					<% if current_user.present? %>
+					  <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: "btn btn-danger" %>
+					<% else %>
+					  <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %> 
+					  <%= link_to "Log in", new_user_session_path, class: "btn btn-success" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</nav>
 
 <%= yield %>
 
 <script type="text/javascript">
     <%= yield :js %>
 </script>
+
+<footer id="footer">
+	<ul class="icons">
+		<li>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-github"></i></a>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-google-plus"></i></a>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+		</li>
+	</ul>
+	<ul class="copyright">
+		<li>
+			© Untitled. All rights reserved.
+		</li>
+	</ul>
+</footer>
 
 </body>
 </html>
