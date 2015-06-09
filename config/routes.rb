@@ -7,6 +7,12 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  get 'hot' => 'articles#hot'
+  get 'trending' => 'articles#trending'
+  get 'fresh' => 'articles#fresh'
+
+  resources :users, only: [:show]
+
   resources :votes do
     member do
       patch :vote

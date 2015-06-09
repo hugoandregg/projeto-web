@@ -1,3 +1,7 @@
+hr {
+	max-width: 100%;
+}
+
 #title-font a {
 	color: #222;
 	text-decoration: none;
@@ -10,6 +14,11 @@
 #butn-color {
 	background-color: red;
 	}
+
+.ad-img {
+	height: 250px;
+	width: 250px;
+}
 
 #title-font {
 	font-size: 40px;
@@ -38,9 +47,14 @@
   	color: #eee;
 }
 
-#btn-post {
-	background-color: green;
-	border-color: green;
+#btn-post1 {
+	background-color: #DF013A;
+	border-color: #DF013A;
+	font-weight: bold;
+}
+
+#btn-post2 {
+	font-weight: bold;
 }
 
 .pager {
@@ -81,3 +95,64 @@
 	color: #D9534F;
 }
 
+
+#comment-img {
+	max-width: 100%;
+	margin-top: 20px;
+}
+
+
+#comment-textarea {
+	max-width: 100%;
+	min-width: 100%;
+	min-height: 80px;
+	max-height: 80px;
+	margin-top: 20px;
+}
+
+#comment-btn {
+	margin-bottom: 15px;
+}
+
+#comment-row-list {
+	margin-top: 50px;
+}
+
+#pager-pre-nex {
+	background-color: #D9534F;
+	color: red;
+}
+
+.pagination>li>a {
+    color: #D9534F;
+}
+
+
+.pagination>.active>a {
+    background-color: #D9534F;
+    border-color: #D9534F;
+    color: #fff;
+}
+
+
+#number_votes {
+	font-size: 10px;
+	color: #A4A4A4;
+}
+
+#inactive-heart {
+	color: #D9534F
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #fff;
+  cursor: default;
+  background-color: #D9534F;
+  border-color: #D9534F;
+}

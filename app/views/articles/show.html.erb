@@ -1,58 +1,92 @@
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>
+<section class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h2 id="title-font"><%= @article.title %></h2>
+        <p id="content-font"><%= @article.text %></p>
+        <ul class="icons">
+          <li>
+            <span id="number_votes"><%= @article.votes.count %></span>
+            <% if current_user.present? %>
+              <% if @article.votes.find_by_user_id(current_user.id) %>
+                <span id="bota2" onclick="toggle('bota2', 'bota1')"><%= link_to remove_vote_vote_path(@article), method: :patch, remote: true do %>
+                  <i class="glyphicon glyphicon-heart"></i>
+                  <% end %>
+                </span>
+                <span id="bota1" onclick="toggle('bota1', 'bota2')" style="display:none"><%= link_to vote_vote_path(@article), method: :patch, remote: true do %>
+                  <i class="glyphicon glyphicon-heart-empty"></i>
+                  <% end %>
+                </span>
+              <% else %>
+                <span id="bota1" onclick="toggle('bota1', 'bota2')"><%= link_to vote_vote_path(@article), method: :patch, remote: true do %>
+                  <i class="glyphicon glyphicon-heart-empty"></i>
+                  <% end %>
+                </span>
+                <span id="bota2" onclick="toggle('bota2', 'bota1')" style="display:none"><%= link_to remove_vote_vote_path(@article), method: :patch, remote: true do %>
+                  <i class="glyphicon glyphicon-heart"></i>
+                  <% end %>
+                </span>
+              <% end %>
+            <% end %>
+          </li>
+          <% if current_user == @article.user %>
+            <li><%= link_to edit_article_path(@article) do %>
+              <i class="glyphicon glyphicon-edit"></i>
+              <% end %>
+            </li>
 
-<p>
-  <strong>Votes:</strong>
-  <span id="number_votes"><%= @article.votes.count %></span>
-</p>
+            <li><%= link_to article_path(@article),
+              method: :delete,
+              data: { confirm: 'Are you sure you want to delete this article?' } do %>
+              <i class="glyphicon glyphicon-trash"></i>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <br><br><br>
 
-<% if current_user == @article.user %>
-  <%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
-
-<% if current_user.present? %>
-  <% if @article.votes.find_by_user_id(current_user.id) %>
-    <button id="bota2" onclick="toggle('bota2', 'bota1')"><%= link_to 'Remove_vote', remove_vote_vote_path(@article), method: :patch, remote: true %></button>
-    <button id="bota1" onclick="toggle('bota1', 'bota2')" style="display:none"><%= link_to 'Vote', vote_vote_path(@article), method: :patch, remote: true %></button>
-  <% else %>
-    <button id="bota1" onclick="toggle('bota1', 'bota2')"><%= link_to 'Vote', vote_vote_path(@article), method: :patch, remote: true %></button>
-    <button id="bota2" onclick="toggle('bota2', 'bota1')" style="display:none"><%= link_to 'Remove_vote', remove_vote_vote_path(@article), method: :patch, remote: true %></button>
-  <% end %>
-<% end %>
-
-<h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong><%= comment.user.name %>:</strong>
-    <%= comment.body %> <% if current_user == comment.user %>- <%= link_to 'Destroy', article_comment_path(@article.id, comment), method: :delete, data: {confirm: 'Are you sure?'} %><% end %>
-  </p>
-<% end %>
-
-<% if current_user.present? %>
-  <h2>Add a comment:</h2>
-  <%= form_for([@article, @article.comments.build]) do |f| %>
-    <p>
-      <%= f.label :body %><br>
-      <%= f.text_area :body %>
-    </p>
-
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-
-    <p>
-      <%= f.submit %>
-    </p>
-  <% end %>
-<% end %>
-
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+        <hr>
+        <h3 style="text-align:center; color:#D9534F"><strong>Comentários</strong></h3>
+        <div id="comment-row-list" class="row">
+        <% if @comments.count >= 1 %>
+          <% @comments.each do |comment| %>
+            <div class="col-md-8">  
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <a href="/users/<%= comment.user.id%>"><h4><strong><%= comment.user.name %></strong></h4></a>
+                  <p>
+                  <br>
+                    <%= comment.body %>
+                    <br><br>
+                    <% if current_user == comment.user %><%= link_to 'Delete', article_comment_path(@article.id, comment), method: :delete, data: {confirm: 'Are you sure you want to delete this comment?'},class:"btn btn-danger" %><% end %>
+                  </p>
+                  <br> <hr>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <% if current_user.present? %>
+        <div id="comment-row" class="row">
+          <div class="col-md-9">  
+          <%= form_for([@article, @article.comments.build]) do |f| %>
+            <div class="form-group" >
+              <%= f.text_area :body, class:"form-control", id:"comment-textarea" %>
+            </div>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <%= f.submit "Create comment", id:"comment-btn", class:"btn btn-success pull-right" %>        
+          <% end %>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+        <% end %>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </section>
 
 <% content_for :js do %>
   function toggle(id, id2) {

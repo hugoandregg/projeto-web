@@ -1,26 +1,35 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<section>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="log-form">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+              <%= f.email_field :email, autofocus: true, class:"form-control", id:"exampleInputEmail1" %>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <%= f.password_field :password, autocomplete: "off", class:"form-control", id:"exampleInputPassword1" %>
+          </div>
+          <% if devise_mapping.rememberable? -%>
+          <div>
+            <a href="password/new">Forgot your password?</a>
+          </div>
+          <div class="checkbox">
+              <label>
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </label>
+          </div>
+          <% end %>
+          <div class="actions">
+            <%= f.submit "Log in", class:"btn btn-primary" %>
+          </div>
+        <% end %>
+        </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <div class="col-md-4"></div>
   </div>
-<% end %>
+</section>
 
-<%= render "devise/shared/links" %>

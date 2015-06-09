@@ -6,8 +6,10 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <%= stylesheet_link_tag 'style' %>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 </head>
 <body>
 
@@ -15,21 +17,23 @@
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="">
-					<img alt="Brand" src="http://dogedigger.l8.io/assets/player.png">
+					<img alt="Brand" src="http://www.nerdofsweden.net/img/nerd_of_sweden_logo_small.png">
 				</a>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Hot</a></li>
-					<li><a href="#">Tredding</a></li>
-					<li><a href="#">Fresh</a></li>
+					<% if request.fullpath.include? "hot" %><li class="active"><% else %><li><% end %><a href="/hot">Hot</a></li>
+					<% if request.fullpath.include? "trending" %><li class="active"><% else %><li><% end %><a href="/trending">Trending</a></li>
+					<% if request.fullpath.include? "fresh" %><li class="active"><% else %><li><% end %><a href="/fresh">Fresh</a></li>
 				</ul>
 			</div>
 			<div class="navbar-right butn">
 				<div if="butn-color" class="btn-group" role="group" aria-label="...">
 					<% if current_user.present? %>
-					  <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: "btn btn-danger" %>
+
+					  <a id="btn-post1" class="btn btn-primary" href="/articles/new" role="button">Nova Postagem</a>
+					  <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: "btn btn-danger", id:"btn-post2" %>
 					<% else %>
-					  <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %> 
-					  <%= link_to "Log in", new_user_session_path, class: "btn btn-success" %>
+					  <%= link_to "Sign up", new_user_registration_path, class: "btn bg-danger" %> 
+					  <%= link_to "Log in", new_user_session_path, class: "btn btn-danger" %>
 					<% end %>
 				</div>
 			</div>

@@ -1,11 +1,36 @@
 class ArticlesController < ApplicationController
 	
 	def index
+		redirect_to :action => "hot"
+	end
+
+	def hot
+		@articles = []
+		Article.all.each do |a|
+			if a.votes.count >= 40
+				@articles << a
+			end
+		end
+		@articles = @articles.paginate(:page => params[:page], :per_page => 5)
+	end
+
+	def trending
+		@articles = []
+		Article.all.each do |a|
+			if a.votes.count >= 20
+				@articles << a
+			end
+		end
+		@articles = @articles.paginate(:page => params[:page], :per_page => 5)
+	end
+
+	def fresh
 		@articles = Article.paginate(:page => params[:page], :per_page => 5)
 	end
 
 	def show
 		@article = Article.find(params[:id])
+		@comments = @article.comments
 	end
 
 	def edit
